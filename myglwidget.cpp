@@ -55,7 +55,7 @@ void MyGLWidget::scene_0()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(50.0f, 50.0f, 0.0f);
+	// glTranslatef(50.0f, 50.0f, 0.0f);
 	
 	//draw a diagonal "I"
 	glPushMatrix();
