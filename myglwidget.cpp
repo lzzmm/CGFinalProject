@@ -63,13 +63,13 @@ void MyGLWidget::scene_0()
 	glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
 	glTranslatef(-2.5f, -22.5f, 0.0f);
 	glBegin(GL_TRIANGLES);
-	glVertex2f(0.0f, 0.0f);
-	glVertex2f(5.0f, 0.0f);
-	glVertex2f(0.0f, 45.0f);
+	glVertex2f( 0.0f,  0.0f);
+	glVertex2f(15.0f,  0.0f);
+	glVertex2f( 0.0f, 45.0f);
 
-	glVertex2f(5.0f, 0.0f);
-	glVertex2f(0.0f, 45.0f);
-	glVertex2f(5.0f, 45.0f);
+	glVertex2f(15.0f,  0.0f);
+	glVertex2f( 0.0f, 45.0f);
+	glVertex2f(15.0f, 45.0f);
 
 	glEnd();
 	glPopMatrix();	
