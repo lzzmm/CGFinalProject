@@ -55,12 +55,12 @@ void MyGLWidget::scene_0()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	// glTranslatef(50.0f, 50.0f, 0.0f);
+	 glTranslatef(50.0f, 50.0f, 0.0f);
 	
 	//draw a diagonal "I"
 	glPushMatrix();
 	glColor3f(0.839f, 0.153f, 0.157f);
-	glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
+	//glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
 	glTranslatef(-2.5f, -22.5f, 0.0f);
 	glBegin(GL_TRIANGLES);
 	glVertex2f( 0.0f,  0.0f);

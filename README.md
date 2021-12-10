@@ -10,7 +10,7 @@ Final Project of DCS304 - Computer Graphics 2021 Fall
 
 ~~首先更改 `.pro` 文件中的 `INCLUDEPATH`~~
 
-需要的一些头文件请放到 `Libraries\Includes` 文件夹中；需要的一些库请放到 `Libraries\Libs` 文件夹中，并在 `.pro` 文件中的 `LIBS` 添加相对路径；项目添加的头文件和源文件，请在 `.pro` 中的 `HEADERS` 和 `SOURCES` 添加。
+需要的一些头文件请放到 `include` 文件夹中；需要的一些库请放到 `lib` 文件夹中，并在 `.pro` 文件中的 `LIBS` 添加相对路径；项目添加的头文件和源文件，请在 `.pro` 中的 `HEADERS` 和 `SOURCES` 添加相对路径。
 
 
 
@@ -20,7 +20,7 @@ Final Project of DCS304 - Computer Graphics 2021 Fall
 qmake -tp vc
 ```
 
-生成 `.vcxproj` 文件。使用 `msvc2017` 工具生成的项目文件在 Visual studio 2019 中打开需要升级工具集。
+生成 `.vcxproj` 文件。使用 `msvc2017` 工具生成的项目文件在 Visual studio 2019 中打开可能需要升级工具集。
 
 
 

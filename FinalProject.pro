@@ -6,21 +6,21 @@ CONFIG += console qt c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
-INCLUDEPATH += "Libraries\Includes"
+INCLUDEPATH += "include"
     
 
 LIBS += \
 	Glu32.lib \
 	OpenGL32.lib
 LIBS += \
-    "Libraries\Libs\glew32.lib"\
-    "Libraries\Libs\assimp-vc142-mt.lib"
+    "lib\x64\glew32.lib"\
+    "lib\x64\assimp-vc142-mt.lib"
 
 SOURCES += \
-    main.cpp \
-    myglwidget.cpp
+    "src\main.cpp" \
+    "src\myglwidget.cpp"
     
 
 HEADERS += \
-    myglwidget.h
+    "src\myglwidget.h"
     
