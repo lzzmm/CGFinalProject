@@ -10,8 +10,7 @@ Final Project of DCS304 - Computer Graphics 2021 Fall
 
 ~~首先更改 `.pro` 文件中的 `INCLUDEPATH`~~
 
-需要的一些头文件请放到 `include` 文件夹中；需要的一些库请放到 `lib` 文件夹中，并在 `.pro` 文件中的 `LIBS` 添加相对路径；项目添加的头文件和源文件，请在 `.pro` 中的 `HEADERS` 和 `SOURCES` 添加相对路径。
-
+需要的一些外部依赖头文件请放到 `include` 文件夹中；需要的一些库请放到 `lib` 文件夹中，并在 `.pro` 文件中的 `LIBS` 添加相对路径；项目添加的头文件和源文件，请在 `.pro` 中的 `HEADERS` 和 `SOURCES` 添加相对路径；项目添加的资源文件（如 shader ）请放在 `resource` 中，有需要的话可以更新 `resource.qrc`。
 
 
 在文件夹中打开终端，输入命令
