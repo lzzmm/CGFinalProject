@@ -22,11 +22,13 @@ LIBS += \
 
 SOURCES += \
     "src\main.cpp" \
-    "src\myglwidget.cpp"
+    "src\myglwidget.cpp" \
+    "src\mycamera.cpp"
     
 
 HEADERS += \
-    "header\myglwidget.h"
+    "header\myglwidget.h" \
+    "header\mycamera.h"
 
 RESOURCES += resource/resource.qrc
 
