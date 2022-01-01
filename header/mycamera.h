@@ -1,5 +1,5 @@
-﻿#ifndef MYCAMERA_H
-#define MYCAMERA_H
+﻿#ifndef __MYCAMERA_H__
+#define __MYCAMERA_H__
 
 #include <QSet>
 #include <QVector3D>
@@ -10,8 +10,9 @@
 #include <QKeyEvent>
 #include <QTime>
 
-#define ACC_RATE 5
-
+#define ACC_RATE 5.0f
+#define CAM_SPEED 0.5f
+#define SENSITIVITY 0.001f
 
 class Camera
 {
@@ -64,4 +65,4 @@ private:
 
 };
 
-#endif // MYCAMERA_H
+#endif // __MYCAMERA_H__
