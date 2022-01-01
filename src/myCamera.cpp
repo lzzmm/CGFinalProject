@@ -4,12 +4,12 @@ Camera::Camera(QWidget* widget)
 	: widget(widget)
 	, yaw(0)
 	, pitch(0)
-	, sensitivity(0.001f)
+	, sensitivity(SENSITIVITY)
 	, cameraPos(-5.0f, 0.0f, 0.0f)
 	, cameraDirection(cos(yaw)* cos(pitch), sin(pitch), sin(yaw)* cos(pitch))
 	, cameraRight(QVector3D::crossProduct({ 0.0f, 1.0f, 0.0f }, cameraDirection))
 	, cameraUp(QVector3D::crossProduct(cameraDirection, cameraRight))
-	, moveSpeed(0.5f)
+	, moveSpeed(CAM_SPEED)
 	, moveSpeedAccelerator(1.0f)
 	, timeId(0)
 {
@@ -75,10 +75,10 @@ void Camera::handle(QEvent* e)
 		yoffset *= sensitivity;
 		yaw += xoffset;
 		pitch += yoffset;
-		if (pitch > 1.55)         // 将俯视角限制到[-89°,89°]，89°约等于1.55
-			pitch = 1.55;
-		if (pitch < -1.55)
-			pitch = -1.55;
+		if (pitch > 1.55f)         // 将俯视角限制到[-89°,89°]，89°约等于1.55
+			pitch = 1.55f;
+		if (pitch < -1.55f)
+			pitch = -1.55f;
 		cameraDirection.setX(cos(yaw) * cos(pitch));
 		cameraDirection.setY(sin(pitch));
 		cameraDirection.setZ(sin(yaw) * cos(pitch));

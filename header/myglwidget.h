@@ -1,5 +1,5 @@
-﻿#ifndef MYGLWIDGET_H
-#define MYGLWIDGET_H
+﻿#ifndef __MYGLWIDGET_H__
+#define __MYGLWIDGET_H__
 
 #ifdef MAC_OS
 #include <QtOpenGL/QtOpenGL>
@@ -12,8 +12,13 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLExtraFunctions>
 #include <QOpenGLVertexArrayObject>
+#include <QOpenGLTexture>
+#include <QtMath>
 
 #include "GLFW/glfw3.h"
+
+#include "mycamera.h"
+// #include "textRender.h"
 
 class MyGLWidget : public QOpenGLWidget {
 	Q_OBJECT
@@ -24,14 +29,19 @@ public:
 
 protected:
 	void initializeGL();
-	void paintGL();
+	virtual void paintGL();
 	void resizeGL(int width, int height);
 	void keyPressEvent(QKeyEvent* e);
+	virtual bool event(QEvent* e) override;
 	//void mouseMoveEvent(QMouseEvent* e);
 	//void wheelEvent(QWheelEvent* e);
+	//void paintEvent(QPaintEvent* e);
+
+	void calcFPS();
 
 private:
 	int scene_id;
+	int fps;
 	void scene_0();
 	void scene_1();
 
@@ -41,5 +51,9 @@ private:
 	QOpenGLBuffer VBO;	// 顶点缓冲对象
 	QOpenGLBuffer IBO;  // 索引缓冲对象
 	QOpenGLVertexArrayObject VAO;	// 顶点数组对象
+	QOpenGLTexture texture;	// 纹理
+	QTimer* timer;
+
+	Camera camera;
 };
-#endif // MYGLWIDGET_H
+#endif // __MYGLWIDGET_H__
