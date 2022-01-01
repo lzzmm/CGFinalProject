@@ -75,10 +75,10 @@ void Camera::handle(QEvent* e)
 		yoffset *= sensitivity;
 		yaw += xoffset;
 		pitch += yoffset;
-		if (pitch > 1.55)         // 将俯视角限制到[-89°,89°]，89°约等于1.55
-			pitch = 1.55;
-		if (pitch < -1.55)
-			pitch = -1.55;
+		if (pitch > 1.55f)         // 将俯视角限制到[-89°,89°]，89°约等于1.55
+			pitch = 1.55f;
+		if (pitch < -1.55f)
+			pitch = -1.55f;
 		cameraDirection.setX(cos(yaw) * cos(pitch));
 		cameraDirection.setY(sin(pitch));
 		cameraDirection.setZ(sin(yaw) * cos(pitch));
