@@ -15,7 +15,7 @@
 #include <QOpenGLTexture>
 #include <QtMath>
 
-#include "GLFW/glfw3.h"
+//#include "GLFW/glfw3.h"
 
 #include "mycamera.h"
 // #include "textRender.h"
@@ -39,6 +39,8 @@ protected:
 
 	void calcFPS();
 
+	void drawSkybox();
+
 private:
 	int scene_id;
 	int fps;
@@ -55,5 +57,11 @@ private:
 	QTimer* timer;
 
 	Camera camera;
+
+	QVector<float> SkyboxVertices;
+	QOpenGLVertexArrayObject SkyboxVAO;	// 顶点数组对象
+	QOpenGLBuffer SkyboxVBO;	// 顶点缓冲对象
+	QOpenGLTexture SkyboxTexture;	// 纹理
+
 };
 #endif // __MYGLWIDGET_H__

@@ -1,4 +1,5 @@
 ﻿#include "myglwidget.h"
+#define sky_size 30.0f
 
 MyGLWidget::MyGLWidget(QWidget* parent)
 	: QOpenGLWidget(parent)
@@ -7,19 +8,49 @@ MyGLWidget::MyGLWidget(QWidget* parent)
 	, IBO(QOpenGLBuffer::IndexBuffer)
 	, texture(QOpenGLTexture::Target2D)
 	, camera(this)
+	, SkyboxVBO(QOpenGLBuffer::VertexBuffer)
+	, SkyboxTexture(QOpenGLTexture::Target2D)
 {
+
 	vertices = {
-		// 0.5f,  0.5f,  0.0f,	// 右上角
-		// 0.5f, -0.5f,  0.0f,	// 右下角
-		//-0.5f, -0.5f,  0.0f,	// 左下角
-		//-0.5f,  0.5f,  0.0f	// 左上角
-
 		// 位置              // 颜色				// 纹理
-		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 0.0f, // 右下
-		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  0.0f, 0.0f, // 左下
-		-0.5f,  0.5f, 0.0f,  0.0f, 1.0f, 1.0f,  0.0f, 1.0f, // 左下
-		 0.5f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  1.0f, 1.0f, // 右上
+		 0.5f, -0.5f, 0.5f,   0.0f, 0.0f, 1.0f,  1.0f, 0.0f, // 右下
+		-0.5f, -0.5f, 0.5f,   0.0f, 0.0f, 1.0f,  0.0f, 0.0f, // 左下
+		-0.5f,  0.5f, 0.5f,   0.0f, 0.0f, 1.0f,  0.0f, 1.0f, // 左下
+		 0.5f,  0.5f, 0.5f,   0.0f, 0.0f, 1.0f,  1.0f, 1.0f, // 右上
+	};
 
+	SkyboxVertices = {
+		// 位置              // 颜色				// 纹理
+		 1.0f * sky_size, -1.0f * sky_size, 1.0f * sky_size,   1.0f, 1.0f, 1.0f,  1.0f, 0.0f, // 右下
+		-1.0f * sky_size, -1.0f * sky_size, 1.0f * sky_size,   1.0f, 1.0f, 1.0f,  0.0f, 0.0f, // 左下
+		-1.0f * sky_size,  1.0f * sky_size, 1.0f * sky_size,   1.0f, 1.0f, 1.0f,  0.0f, 1.0f, // 左下
+		 1.0f * sky_size,  1.0f * sky_size, 1.0f * sky_size,   1.0f, 1.0f, 1.0f,  1.0f, 1.0f, // 右上
+
+		 1.0f * sky_size, -1.0f * sky_size, -1.0f * sky_size,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f, // 右下
+		-1.0f * sky_size, -1.0f * sky_size, -1.0f * sky_size,  1.0f, 1.0f, 1.0f,  0.0f, 0.0f, // 左下
+		-1.0f * sky_size,  1.0f * sky_size, -1.0f * sky_size,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f, // 左下
+		 1.0f * sky_size,  1.0f * sky_size, -1.0f * sky_size,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f, // 右上
+
+		 1.0f * sky_size, 1.0f * sky_size,  -1.0f * sky_size,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f, // 右下
+		 1.0f * sky_size, -1.0f * sky_size, -1.0f * sky_size,  1.0f, 1.0f, 1.0f,  0.0f, 0.0f, // 左下
+		 1.0f * sky_size, -1.0f * sky_size, 1.0f * sky_size,   1.0f, 1.0f, 1.0f,  0.0f, 1.0f, // 左下
+		 1.0f * sky_size, 1.0f * sky_size,  1.0f * sky_size,   1.0f, 1.0f, 1.0f,  1.0f, 1.0f, // 右上
+
+		 -1.0f * sky_size, 1.0f * sky_size,  -1.0f * sky_size, 1.0f, 1.0f, 1.0f,  1.0f, 0.0f, // 右下
+		 -1.0f * sky_size, -1.0f * sky_size, -1.0f * sky_size, 1.0f, 1.0f, 1.0f,  0.0f, 0.0f, // 左下
+		 -1.0f * sky_size, -1.0f * sky_size, 1.0f * sky_size,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f, // 左下
+		 -1.0f * sky_size, 1.0f * sky_size,  1.0f * sky_size,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f, // 右上
+
+		 1.0f * sky_size, 1.0f * sky_size, -1.0f * sky_size,   1.0f, 1.0f, 1.0f,  1.0f, 0.0f, // 右下
+		-1.0f * sky_size, 1.0f * sky_size, -1.0f * sky_size,   1.0f, 1.0f, 1.0f,  0.0f, 0.0f, // 左下
+		-1.0f * sky_size, 1.0f * sky_size, 1.0f * sky_size,    1.0f, 1.0f, 1.0f,  0.0f, 1.0f, // 左下
+		 1.0f * sky_size, 1.0f * sky_size, 1.0f * sky_size,    1.0f, 1.0f, 1.0f,  1.0f, 1.0f, // 右上
+
+		 1.0f * sky_size, -1.0f * sky_size, -1.0f * sky_size,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f, // 右下
+		-1.0f * sky_size, -1.0f * sky_size, -1.0f * sky_size,  1.0f, 1.0f, 1.0f,  0.0f, 0.0f, // 左下
+		-1.0f * sky_size, -1.0f * sky_size, 1.0f * sky_size,   1.0f, 1.0f, 1.0f,  0.0f, 1.0f, // 左下
+		 1.0f * sky_size, -1.0f * sky_size, 1.0f * sky_size,   1.0f, 1.0f, 1.0f,  1.0f, 1.0f, // 右上
 	};
 
 	indices = {		// 注意索引从0开始
@@ -36,6 +67,114 @@ MyGLWidget::~MyGLWidget()
 {
 	delete this->timer;
 	texture.destroy();
+}
+
+void drawSkyBox(float x, float y, float z, float width, float height, float len)
+{
+	//获取中心点
+	x = x - width / 2;
+	y = y - height / 2;
+	z = z - len / 2;
+
+	glPushMatrix();
+
+	//back face
+	glBegin(GL_QUADS);
+	glNormal3f(0.0, 0.0, 1.0);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(x + width, y, z);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(x + width, y + height, z);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(x, y + height, z);
+
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glEnd();
+
+	//front face
+	glBegin(GL_QUADS);
+	glNormal3f(0.0, 0.0, -1.0);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(x, y, z + len);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(x, y + height, z + len);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(x + width, y + height, z + len);
+
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(x + width, y, z + len);
+	glEnd();
+
+
+	//bottom face
+	glBegin(GL_QUADS);
+	glNormal3f(0.0, 1.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(x, y, z);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(x, y, z + len);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(x + width, y, z + len);
+
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(x + width, y, z);
+	glEnd();
+
+	//top face
+	glBegin(GL_QUADS);
+	glNormal3f(0.0, -1.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(x + width, y + height, z);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(x + width, y + height, z + len);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(x, y + height, z + len);
+
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(x, y + height, z);
+	glEnd();
+
+	//left face
+	glBegin(GL_QUADS);
+	glNormal3f(1.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(x, y + height, z);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(x, y + height, z + len);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(x, y, z + len);
+
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glEnd();
+
+	//right face
+	glBegin(GL_QUADS);
+	glNormal3f(0.0, 0.0, -1.0);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(x + width, y, z);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(x + width, y, z + len);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(x + width, y + height, z + len);
+
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(x + width, y + height, z);
+	glEnd();
+	glPopMatrix();
 }
 
 void MyGLWidget::initializeGL()
@@ -55,6 +194,8 @@ void MyGLWidget::initializeGL()
 	VAO.create();       // 生成VAO对象
 	VBO.create();       // 生成VBO对象
 	IBO.create();       // 生成IBO对象
+	SkyboxVAO.create();       // 生成VAO对象
+
 
 	VBO.bind();         // 将VBO绑定到当前的顶点缓冲对象（QOpenGLBuffer::VertexBuffer）中
 	// 将顶点数据分配到VBO中，第一个参数为数据指针，第二个参数为数据的字节长度
@@ -69,6 +210,15 @@ void MyGLWidget::initializeGL()
 	//texture.setBorderColor(QColor(1.0f, 1.0f, 1.0f, 1.0f));
 	texture.setMinMagFilters(QOpenGLTexture::Nearest, QOpenGLTexture::Linear);
 	texture.setMinMagFilters(QOpenGLTexture::LinearMipMapLinear, QOpenGLTexture::Linear);
+
+	SkyboxTexture.create();
+	//texture.setSize();
+	SkyboxTexture.setData(QImage(":/resource/textures/test.png").mirrored());
+	SkyboxTexture.setWrapMode(QOpenGLTexture::DirectionS, QOpenGLTexture::Repeat);
+	SkyboxTexture.setWrapMode(QOpenGLTexture::DirectionT, QOpenGLTexture::Repeat);
+	//texture.setBorderColor(QColor(1.0f, 1.0f, 1.0f, 1.0f));
+	SkyboxTexture.setMinMagFilters(QOpenGLTexture::Nearest, QOpenGLTexture::Linear);
+	SkyboxTexture.setMinMagFilters(QOpenGLTexture::LinearMipMapLinear, QOpenGLTexture::Linear);
 
 
 	shaderProgram.setAttributeBuffer(0, GL_FLOAT, 0, 3, sizeof(GLfloat) * 8);
@@ -148,18 +298,36 @@ void MyGLWidget::scene_0()
 	glPopMatrix();
 }
 
+void MyGLWidget::drawSkybox() {
+	QOpenGLVertexArrayObject::Binder{ &SkyboxVAO };
+	SkyboxVBO.create();       // 生成VBO对象
+	SkyboxVBO.bind();         // 将VBO绑定到当前的顶点缓冲对象（QOpenGLBuffer::VertexBuffer）中
+	// 将顶点数据分配到VBO中，第一个参数为数据指针，第二个参数为数据的字节长度
+	SkyboxVBO.allocate(SkyboxVertices.data(), sizeof(float) * SkyboxVertices.size());
+
+	shaderProgram.setAttributeBuffer(0, GL_FLOAT, 0, 3, sizeof(GLfloat) * 8);
+	shaderProgram.enableAttributeArray(0);
+	shaderProgram.setAttributeBuffer(1, GL_FLOAT, sizeof(GLfloat) * 3, 3, sizeof(GLfloat) * 8);
+	shaderProgram.enableAttributeArray(1);
+	shaderProgram.setAttributeBuffer(2, GL_FLOAT, sizeof(GLfloat) * 6, 2, sizeof(GLfloat) * 8);
+	shaderProgram.enableAttributeArray(2);
+
+	SkyboxTexture.bind(0);
+	shaderProgram.setUniformValue("ourTexture", 0);      // 让ourTexture着色采样器从纹理单元0中获取纹理数据
+
+	glDrawArrays(GL_QUADS, 0, 24);
+}
+
 void MyGLWidget::scene_1()
 {
 
 	QOpenGLVertexArrayObject::Binder{ &VAO };
-
 	//VAO.bind();         // 绑定VAO，之后所以的顶点缓冲对象的操作都会存储到VAO中
 
 #if 0
 	IBO.bind();         // 将IBO绑定到当前的索引缓冲对象（QOpenGLBuffer::IndexBuffer）中
 	IBO.allocate(indices.data(), sizeof(unsigned int) * indices.size());
 #endif
-
 
 	glClearColor(0.1f, 0.5f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -174,15 +342,17 @@ void MyGLWidget::scene_1()
 
 	QMatrix4x4 model;
 	float time = QTime::currentTime().msecsSinceStartOfDay() / 1000.0;
-	model.rotate(30 * time, QVector3D(1.0f, 0.0f, -1.0f));
+	model.rotate(5 * time, QVector3D(1.0f, 0.0f, -1.0f));
 	//model.scale(10.0f);
 	shaderProgram.setUniformValue("model", model);
 
-	texture.bind(0);
-	shaderProgram.setUniformValue("ourTexture", 0);      // 让ourTexture着色采样器从纹理单元0中获取纹理数据
-	glDrawArrays(GL_POLYGON, 0, 4);
+	//texture.bind(0);
+	//shaderProgram.setUniformValue("ourTexture", 0);      // 让ourTexture着色采样器从纹理单元0中获取纹理数据
+	//glDrawArrays(GL_POLYGON, 0, 4);
+	drawSkybox();//绘制天空盒
 
 	texture.release();
+	SkyboxTexture.release();
 	shaderProgram.release();
 
 	calcFPS();
