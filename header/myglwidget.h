@@ -46,16 +46,15 @@ private:
 	void scene_0();
 	void scene_1();
 
-	QVector<GLfloat> vertices;
-	QVector<unsigned int> indices;
+	//QVector<GLfloat> vertices;
+	//QVector<unsigned int> indices;
 	QOpenGLShaderProgram shaderProgram;
-	QOpenGLBuffer VBO;	// 顶点缓冲对象
-	QOpenGLBuffer IBO;  // 索引缓冲对象
-	QOpenGLVertexArrayObject VAO;	// 顶点数组对象
-	QOpenGLTexture texture;	// 纹理
+	//QOpenGLBuffer VBO;	// 顶点缓冲对象
+	//QOpenGLBuffer IBO;  // 索引缓冲对象
+	//QOpenGLVertexArrayObject VAO;	// 顶点数组对象
+	//QOpenGLTexture texture;	// 纹理
 	QTimer* timer;
-	Ball* test;
-	Ball* sun;
+	SolarSystem* solarSystem;
 
 	Camera camera;
 };

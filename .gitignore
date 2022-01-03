@@ -8,6 +8,7 @@ release/
 *.sln.docstates
 *.vcxproj
 *.filters
+Makefile*
 
 # Prerequisites
 *.d
