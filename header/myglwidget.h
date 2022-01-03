@@ -34,9 +34,6 @@ protected:
 	void resizeGL(int width, int height);
 	void keyPressEvent(QKeyEvent* e);
 	virtual bool event(QEvent* e) override;
-	//void mouseMoveEvent(QMouseEvent* e);
-	//void wheelEvent(QWheelEvent* e);
-	//void paintEvent(QPaintEvent* e);
 
 	void calcFPS();
 
@@ -48,22 +45,11 @@ private:
 	void scene_0();
 	void scene_1();
 
-	//QVector<GLfloat> vertices;
-	//QVector<unsigned int> indices;
 	QOpenGLShaderProgram shaderProgram;
-	//QOpenGLBuffer VBO;	// 顶点缓冲对象
-	//QOpenGLBuffer IBO;  // 索引缓冲对象
-	//QOpenGLVertexArrayObject VAO;	// 顶点数组对象
-	//QOpenGLTexture texture;	// 纹理
 	QTimer* timer;
 	SolarSystem* solarSystem;
 
 	Camera camera;
-
-	QVector<float> SkyboxVertices;
-	QOpenGLVertexArrayObject SkyboxVAO;	// 顶点数组对象
-	QOpenGLBuffer SkyboxVBO;	// 顶点缓冲对象
-	QOpenGLTexture SkyboxTexture;	// 纹理
 
 };
 #endif // __MYGLWIDGET_H__
