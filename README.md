@@ -355,22 +355,22 @@ void MyGLWidget::keyPressEvent(QKeyEvent* e) {			//增加了一些按键功能
 
 - 流星
 
-<img src="C:\Users\16435\AppData\Roaming\Typora\typora-user-images\image-20220103165413923.png" alt="image-20220103165413923" style="zoom:67%;" />
+<img src="./figure/p2.png" />
 
 - 小爆炸：为了截图效果更明显，我设置了彩色
 
-<img src="C:\Users\16435\AppData\Roaming\Typora\typora-user-images\image-20220103165739265.png" alt="image-20220103165739265" style="zoom:67%;" />
+<img src="./figure/p3.png" />
 
-<img src="C:\Users\16435\AppData\Roaming\Typora\typora-user-images\image-20220103165731176.png" alt="image-20220103165731176" style="zoom:67%;" />
+<img src="./figure/p4.png" />
 
 - 融合到天空盒中
 
-<img src="C:\Users\16435\AppData\Roaming\Typora\typora-user-images\image-20220103165959869.png" alt="image-20220103165959869" style="zoom:67%;" />
+<img src="./figure/p5.png" />
 
-<img src="C:\Users\16435\AppData\Roaming\Typora\typora-user-images\image-20220103165905916.png" alt="image-20220103165905916" style="zoom:67%;" />
+<img src="./figure/p6.png" />
 
 **遇到的问题**
 
 ​		和天空盒融合时出现了背景全部变蓝的情况，如下图。后来经过排查，发现是因为我的融合因子参数设计的有问题，使得最终颜色产生了改变。后来改成`glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);`这样的设置就好了。
 
-<img src="C:\Users\16435\AppData\Roaming\Typora\typora-user-images\image-20220103170426712.png" alt="image-20220103170426712" style="zoom:67%;" />
+<img src="./figure/p7.png" />
