@@ -99,12 +99,22 @@ void Camera::handle(QEvent* e)
 			cameraPos += QVector3D::crossProduct(cameraDirection, cameraUp).normalized() * cameraSpeed;
 		if (keys.contains(Qt::Key_Space))                       // 上浮
 			cameraPos.setY(cameraPos.y() + cameraSpeed);
-		if (keys.contains(Qt::Key_Control))                       // 下沉
+		if (keys.contains(Qt::Key_Control))                     // 下沉
 			cameraPos.setY(cameraPos.y() - cameraSpeed);
-		if (keys.contains(Qt::Key_Shift))
+		if (keys.contains(Qt::Key_Shift))						// 加速
 			moveSpeedAccelerator = ACC_RATE;
 		else
 			moveSpeedAccelerator = 1.0f;
+		if (keys.contains(Qt::Key_Alt)) {					
+			widget->setCursor(Qt::ArrowCursor);				// 恢复鼠标光标
+			widget->setMouseTracking(false);				// 关闭鼠标追踪
+		}
+		else {
+			widget->setCursor(Qt::BlankCursor);             // 隐藏鼠标光标
+			QCursor::setPos(widget->geometry().center());   // 将鼠标移动窗口中央
+			widget->setMouseTracking(true);                 // 开启鼠标追踪
+		}
+
 		view.setToIdentity();
 		view.lookAt(cameraPos, cameraPos + cameraDirection, cameraUp);
 	}
@@ -112,7 +122,7 @@ void Camera::handle(QEvent* e)
 		// isAutoRepeat用于判断此按键的来源是否是长按
 		QKeyEvent* event = static_cast<QKeyEvent*>(e);
 		keys.insert(event->key());                              // 添加按键
-		if (!event->isAutoRepeat() && timeId == 0) {                  // 如果定时器未启动，则启动定时器
+		if (!event->isAutoRepeat() && timeId == 0) {            // 如果定时器未启动，则启动定时器
 			timeId = widget->startTimer(1);
 		}
 	}
@@ -135,10 +145,10 @@ void Camera::handle(QEvent* e)
 		widget->setMouseTracking(true);                 // 开启鼠标追踪
 	}
 	else if (e->type() == QEvent::FocusOut) {
-		widget->setCursor(Qt::ArrowCursor);   // 恢复鼠标光标
-		widget->setMouseTracking(false);      // 关闭鼠标追踪
+		widget->setCursor(Qt::ArrowCursor);				// 恢复鼠标光标
+		widget->setMouseTracking(false);				// 关闭鼠标追踪
 	}
-	else if (e->type() == QEvent::Wheel) {
+	else if (e->type() == QEvent::Wheel) {				// 鼠标滚轮事件
 		QWheelEvent* event = static_cast<QWheelEvent*>(e);
 		float cameraSpeed = moveSpeed * moveSpeedAccelerator * event->delta() * 0.005f;
 		cameraPos += cameraSpeed * cameraDirection;
@@ -150,7 +160,7 @@ void Camera::handle(QEvent* e)
 void Camera::init()
 {
 	view.lookAt(cameraPos, cameraPos + cameraDirection, cameraUp);
-	widget->activateWindow();                 // 激活窗口
+	widget->activateWindow();
 	widget->setFocus();
 
 }

@@ -1,12 +1,14 @@
 debug/
 release/
 .vs/
+.vscode/
 *.sln
 *.stash
 *.user
 *.sln.docstates
 *.vcxproj
 *.filters
+Makefile*
 
 # Prerequisites
 *.d
