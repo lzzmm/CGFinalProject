@@ -1,6 +1,7 @@
 debug/
 release/
 .vs/
+.vscode/
 *.sln
 *.stash
 *.user

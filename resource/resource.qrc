@@ -3,5 +3,6 @@
         <file>shaders/triangle.frag</file>
         <file>shaders/triangle.vert</file>
         <file>textures/test.png</file>
+        <file>textures/earth.jpg</file>
     </qresource>
 </RCC>

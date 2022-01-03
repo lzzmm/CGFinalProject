@@ -26,4 +26,9 @@ qmake -tp vc
 若生成 Debug 程序时出现找不到 `Qt5OpenGL.lib` 的错误，可以在项目的库目录添加上 Qt 库路径。如 `C:\Qt\5.15.2\msvc2019_64\lib`.
 
 
-
+TODO: paintGL -> SolarSystem -> drawBall -> Ball
+TODO: Ball: 性质和属性
+TODO: drawBall: 画球
+TODO: SolarSystem: 画太阳系
+TODO: TextRender: 显示文字
+TODO: light: 绑定光源 设置光源位置
