@@ -351,7 +351,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent* e) {			//增加了一些按键功能
 
 - 初始化
 
-<img src="C:\Users\16435\AppData\Roaming\Typora\typora-user-images\image-20220103165336893.png" alt="image-20220103165336893" style="zoom: 67%;" />
+<img src="./figure/p1.png" />
 
 - 流星
 
