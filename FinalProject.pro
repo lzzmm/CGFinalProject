@@ -26,12 +26,14 @@ SOURCES += \
     "src\mycamera.cpp"      \
     "src\ball.cpp"          \
     "src\solarSystem.cpp"   \
+    "src\mymeteor.cpp"      \
 
     
 
 HEADERS += \
     "header\myglwidget.h"   \
     "header\mycamera.h"     \
+    "header\mymeteor.h"	    \
     "header\ball.h"         \
     "header\solarSystem.h"  \
 
