@@ -1,5 +1,4 @@
 ﻿#include "myglwidget.h"
-#define sky_size 30.0f
 
 MyGLWidget::MyGLWidget(QWidget* parent)
 	: QOpenGLWidget(parent)
@@ -40,6 +39,7 @@ void MyGLWidget::initializeGL()
 	camera.init();
 
 	solarSystem = new SolarSystem();
+	solarSystem->runSpeed = 0.01f;
 }
 
 void MyGLWidget::paintGL() {
@@ -82,13 +82,13 @@ void MyGLWidget::scene_0()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	QMatrix4x4 view = camera.getView();
 	QMatrix4x4 projection;
-	projection.perspective(45.0f, width() / (float)height(), 0.1f, 100.0f);
+	projection.perspective(45.0f, width() / (float)height(), 0.1f, 1000.0f);
 	shaderProgram.setUniformValue("projection", projection);
 	QMatrix4x4 model;
 
 	model.setToIdentity();
 	solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model, shaderProgram);
-	calcFPS();
+	//calcFPS();
 	doneCurrent();
 }
 

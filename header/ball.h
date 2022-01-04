@@ -25,9 +25,9 @@ public:
 	~Ball();
 
 	// 公转
-	void revolute();
+	void revolute(GLfloat speed);
 	// 自转
-	void rotate();
+	void rotate(GLfloat speed);
 	// 纹理绑定
 	void textureBind(QString tex);
 	// 画

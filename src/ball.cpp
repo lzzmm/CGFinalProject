@@ -127,9 +127,9 @@ Ball::Ball(GLint texId, GLfloat r, QVector3D pos, GLfloat revS, GLfloat rotS, GL
 	GLint vStepNum = 360 / angleSpan;
 	GLfloat uStep = 1.0f / uStepNum;
 	GLfloat vStep = 1.0f / vStepNum;
-	GLfloat x = sin(PI * v) * cos(2 * PI * u);
-	GLfloat y = sin(PI * v) * sin(2 * PI * u);
-	GLfloat z = cos(PI * v);
+	GLfloat x = sin(PI * v) * cos(2 * PI * u) * radius;
+	GLfloat y = sin(PI * v) * sin(2 * PI * u) * radius;
+	GLfloat z = cos(PI * v) * radius;
 	vertices << x << y << z << x << y << z << 0.5f << 1.0f;
 	for (int i = 1; i < vStepNum; i++)
 	{
@@ -137,18 +137,18 @@ Ball::Ball(GLint texId, GLfloat r, QVector3D pos, GLfloat revS, GLfloat rotS, GL
 		{
 			u = uStep * j;
 			v = vStep * i;
-			x = sin(PI * v) * cos(2 * PI * u);
-			y = sin(PI * v) * sin(2 * PI * u);
-			z = cos(PI * v);
+			x = sin(PI * v) * cos(2 * PI * u) * radius;
+			y = sin(PI * v) * sin(2 * PI * u) * radius;
+			z = cos(PI * v) * radius;
 			vertices << x << y << z << x << y << z << 1.0f - u << v;
 		}
 	}
 
 	u = 1.0f;
 	v = 1.0f;
-	x = sin(PI * v) * cos(2 * PI * u);
-	y = sin(PI * v) * sin(2 * PI * u);
-	z = cos(PI * v);
+	x = sin(PI * v) * cos(2 * PI * u) * radius;
+	y = sin(PI * v) * sin(2 * PI * u) * radius;
+	z = cos(PI * v) * radius;
 	vertices << x << y << z << x << y << z << 0.5f << 0.0f;
 
 	for (int i = 0; i <= uStepNum; i++) // 球体上第一层
@@ -215,12 +215,12 @@ void Ball::textureBind(QString tex)
 	texture.setMinMagFilters(QOpenGLTexture::LinearMipMapLinear, QOpenGLTexture::Linear);
 }
 
-void Ball::revolute() {
-	revAngle = (revAngle + revSpeed) < 360 ? revAngle + revSpeed : 0;
+void Ball::revolute(GLfloat speed) {
+	revAngle = (revAngle + revSpeed * speed) < 360 ? revAngle + revSpeed * speed : 0;
 }
 
-void Ball::rotate() {
-	rotAngle = (rotAngle + rotSpeed) < 360 ? rotAngle + rotSpeed : 0;
+void Ball::rotate(GLfloat speed) {
+	rotAngle = (rotAngle + rotSpeed * speed) < 360 ? rotAngle + rotSpeed * speed : 0;
 }
 
 void Ball::drawBall(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projection, QMatrix4x4 model, QOpenGLShaderProgram& shader) {
@@ -244,6 +244,10 @@ void Ball::drawBall(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projec
 	model.rotate(-revAngle, QVector3D(0.0f, 1.0f, 0.0f));
 	model.rotate(obliquity, QVector3D(0.0f, 0.0f, 1.0f));// 轴倾角
 	model.rotate(rotAngle, QVector3D(0.0f, 1.0f, 0.0f)); // 自转
+	if (this->texId == 9)  // 月球
+	{
+		model.translate(QVector3D(1.5f, 0.0f, 0.0f));
+	}
 	model.rotate(90, QVector3D(1.0f, 0.0f, 0.0f));
 
 	shader.setUniformValue("model", model);
