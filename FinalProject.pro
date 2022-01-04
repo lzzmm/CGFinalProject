@@ -36,6 +36,7 @@ HEADERS += \
     "header\mymeteor.h"	    \
     "header\ball.h"         \
     "header\solarSystem.h"  \
+    "header\inc.h"          \
 
 
 RESOURCES += resource/resource.qrc

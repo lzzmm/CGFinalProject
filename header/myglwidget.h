@@ -1,21 +1,7 @@
 ﻿#ifndef __MYGLWIDGET_H__
 #define __MYGLWIDGET_H__
 
-#ifdef MAC_OS
-#include <QtOpenGL/QtOpenGL>
-#else
-#include <GL/glew.h>
-#endif
-#include <QtGui>
-#include <QOpenGLWidget>
-#include <QOpenGLFunctions>
-#include <QOpenGLShaderProgram>
-#include <QOpenGLExtraFunctions>
-#include <QOpenGLVertexArrayObject>
-#include <QOpenGLTexture>
-#include <QtMath>
-
-//#include "GLFW/glfw3.h"
+#include "inc.h"
 
 #include "mycamera.h"
 #include "solarSystem.h"
@@ -43,7 +29,7 @@ private:
 	void scene_0();
 	void scene_1();
 
-	QOpenGLShaderProgram shaderProgram;
+	
 	QTimer* timer;
 	SolarSystem* solarSystem;
 
