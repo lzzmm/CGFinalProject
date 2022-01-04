@@ -1,7 +1,7 @@
 ﻿#include "solarSystem.h"
 
 SolarSystem::SolarSystem()
-	:runSpeed(1.0f)
+	: runSpeed(1.0f)
 {
 	QVector3D a(0.0f, 0.0f, 0.0f);
 	// sun r = 696000 各种比例都进行了一定的缩小
@@ -44,7 +44,6 @@ SolarSystem::SolarSystem()
 	solarSystemBalls[8] = new Ball(8, 2.4718f, QVector3D(906.0f, 0.0f, 0.0f), 360.0f / 60327.624f, 360.0f / 0.67f, 28.33f, a, a, a, 0.0f, 1.0f);
 	solarSystemBalls[8]->textureBind(":/resource/textures/neptune.jpg");
 
-
 }
 
 SolarSystem::~SolarSystem()
@@ -52,12 +51,26 @@ SolarSystem::~SolarSystem()
 	for (int i = 0; i < 10; i++) delete solarSystemBalls[i];
 }
 
-void SolarSystem::draw(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projection, QMatrix4x4 model, QOpenGLShaderProgram& shader)
+void SolarSystem::initShader()
+{
+	if (!shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/resource/shaders/ball.vert")) { // 添加并编译顶点着色器
+		qDebug() << "ERROR:" << shaderProgram.log();                                                     // 编译出错时打印报错信息
+	}
+	if (!shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/resource/shaders/ball.frag")) { // 添加并编译片段着色器
+		qDebug() << "ERROR:" << shaderProgram.log();                                                       // 编译出错时打印报错信息
+	}
+	if (!shaderProgram.link()) {                     // 链接着色器
+		qDebug() << "ERROR:" << shaderProgram.log(); // 编译出错时打印报错信息
+	}
+}
+
+
+void SolarSystem::draw(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projection, QMatrix4x4 model)
 {
 	for (int i = 0; i < 10; i++)
 	{
 		//if (i == 9) 
-		solarSystemBalls[i]->drawBall(f, view, projection, model, shader);
+		solarSystemBalls[i]->drawBall(f, view, projection, model, shaderProgram);
 		solarSystemBalls[i]->rotate(runSpeed);
 		solarSystemBalls[i]->revolute(runSpeed);
 	}

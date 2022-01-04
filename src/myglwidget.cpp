@@ -21,16 +21,7 @@ MyGLWidget::~MyGLWidget() {
 void MyGLWidget::initializeGL()
 {
 	//this->initializeOpenGLFunctions();        //初始化opengl函数
-
-	if (!shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/resource/shaders/ball.vert")) { //添加并编译顶点着色器
-		qDebug() << "ERROR:" << shaderProgram.log();                                                         // 编译出错时打印报错信息
-	}
-	if (!shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/resource/shaders/ball.frag")) { //添加并编译片段着色器
-		qDebug() << "ERROR:" << shaderProgram.log();                                                           // 编译出错时打印报错信息
-	}
-	if (!shaderProgram.link()) {                     // 链接着色器
-		qDebug() << "ERROR:" << shaderProgram.log(); // 编译出错时打印报错信息
-	}
+	
 
 	glViewport(0, 0, width(), height());
 	glEnable(GL_DEPTH_TEST);
@@ -39,6 +30,7 @@ void MyGLWidget::initializeGL()
 	camera.init();
 
 	solarSystem = new SolarSystem();
+	solarSystem->initShader();
 	solarSystem->runSpeed = 0.01f;
 }
 
@@ -80,14 +72,13 @@ void MyGLWidget::scene_0()
 	makeCurrent();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	QMatrix4x4 model;
 	QMatrix4x4 view = camera.getView();
 	QMatrix4x4 projection;
 	projection.perspective(45.0f, width() / (float)height(), 0.1f, 1000.0f);
-	shaderProgram.setUniformValue("projection", projection);
-	QMatrix4x4 model;
 
 	model.setToIdentity();
-	solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model, shaderProgram);
+	solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model);
 	//calcFPS();
 	doneCurrent();
 }

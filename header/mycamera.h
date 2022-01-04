@@ -1,18 +1,7 @@
 ﻿#ifndef __MYCAMERA_H__
 #define __MYCAMERA_H__
 
-#include <QSet>
-#include <QVector3D>
-#include <QEvent>
-#include <QWidget>
-#include <QtMath>
-#include <QMatrix4x4>
-#include <QKeyEvent>
-#include <QTime>
-
-#define ACC_RATE 10.0f
-#define CAM_SPEED 1.5f
-#define SENSITIVITY 0.001f
+#include "inc.h"
 
 class Camera
 {

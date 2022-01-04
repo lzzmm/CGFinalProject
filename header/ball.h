@@ -1,22 +1,8 @@
 ﻿#ifndef __BALL_H__
 #define __BALL_H__
 
-#ifdef MAC_OS
-#include <QtOpenGL/QtOpenGL>
-#else
-#include <GL/glew.h>
-#endif
-#include <QtGui>
-#include <QOpenGLWidget>
-#include <QtMath>
-#include <QVector3D>
-#include <QOpenGLFunctions>
-#include <QOpenGLShaderProgram>
-#include <QOpenGLExtraFunctions>
-#include <QOpenGLVertexArrayObject>
-#include <QOpenGLTexture>
+#include "inc.h"
 
-#define PI 3.1415926535897932384626433832795028841971693993751f
 
 class Ball {
 public:
