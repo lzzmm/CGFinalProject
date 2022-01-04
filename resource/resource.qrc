@@ -14,5 +14,6 @@
         <file>textures/saturn.jpg</file>
         <file>textures/uranus.jpg</file>
         <file>textures/venus.jpg</file>
+        <file>textures/sky.png</file>
     </qresource>
 </RCC>

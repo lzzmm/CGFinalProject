@@ -14,6 +14,7 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLTexture>
 #include <QtMath>
+#include "GL/glut.h"
 
 class Meteor
 {
