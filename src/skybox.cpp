@@ -44,11 +44,12 @@ Skybox::Skybox(QWidget* widget) :
 Skybox::~Skybox() {
 
 }
-void Skybox::drawSkybox(QMatrix4x4 view, QMatrix4x4 model, QMatrix4x4 projection) {
+void Skybox::drawSkybox(QMatrix4x4 model, QMatrix4x4 projection) {
 	shaderProgram.bind();
 	float time = QTime::currentTime().msecsSinceStartOfDay() / 1000.0;
 	model.rotate(10 * time, QVector3D(1.0f, 0.0f, -1.0f));//Ìì¿ÕºÐÐý×ª
 
+	QMatrix4x4 view;
 	shaderProgram.setUniformValue("view", view);
 	shaderProgram.setUniformValue("projection", projection);
 	shaderProgram.setUniformValue("model", model);

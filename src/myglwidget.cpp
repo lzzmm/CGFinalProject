@@ -110,7 +110,7 @@ void MyGLWidget::scene_0()
 	model.setToIdentity();
 	solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model);
 	
-	skybox.drawSkybox(camera.getView(), model, projection);
+	skybox.drawSkybox(model, projection);
 	meteor.drawMeteor();
 
 	//calcFPS();

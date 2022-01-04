@@ -17,7 +17,7 @@ class Skybox {
 public:
 	Skybox(QWidget* widget);
 	~Skybox();
-	void drawSkybox(QMatrix4x4 view, QMatrix4x4 model, QMatrix4x4 projection);
+	void drawSkybox(QMatrix4x4 model, QMatrix4x4 projection);
 	void init();
 	QOpenGLShaderProgram shaderProgram;
 
