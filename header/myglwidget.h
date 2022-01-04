@@ -37,8 +37,6 @@ protected:
 
 	void calcFPS();
 
-	void drawSkybox();
-
 private:
 	int scene_id;
 	int fps;

@@ -10,8 +10,8 @@
 #include <QKeyEvent>
 #include <QTime>
 
-#define ACC_RATE 5.0f
-#define CAM_SPEED 0.5f
+#define ACC_RATE 10.0f
+#define CAM_SPEED 1.5f
 #define SENSITIVITY 0.001f
 
 class Camera
