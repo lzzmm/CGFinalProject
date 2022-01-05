@@ -27,6 +27,7 @@ SOURCES += \
     "src\ball.cpp"          \
     "src\solarSystem.cpp"   \
     "src\mymeteor.cpp"      \
+    "src\skybox.cpp"      \
 
     
 
@@ -37,6 +38,7 @@ HEADERS += \
     "header\ball.h"         \
     "header\solarSystem.h"  \
     "header\inc.h"          \
+    "header\skybox.h"          \
 
 
 RESOURCES += resource/resource.qrc
