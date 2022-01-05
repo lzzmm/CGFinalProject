@@ -9,10 +9,10 @@ public:
 	SolarSystem();
 	~SolarSystem();
 	void initShader();
-	void draw(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projection, QMatrix4x4 model);
+	void draw(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projection, QMatrix4x4 model, QVector3D viewPos);
 	GLfloat runSpeed;
-private:
 	QOpenGLShaderProgram shaderProgram;
+private:
 	Ball* solarSystemBalls[10];
 };
 

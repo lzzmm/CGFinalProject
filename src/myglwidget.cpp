@@ -24,7 +24,7 @@ MyGLWidget::~MyGLWidget() {
 void MyGLWidget::initializeGL()
 {
 	//this->initializeOpenGLFunctions();        //初始化opengl函数
-	
+
 
 	glViewport(0, 0, width(), height());
 	glEnable(GL_DEPTH_TEST);
@@ -34,10 +34,12 @@ void MyGLWidget::initializeGL()
 
 	solarSystem = new SolarSystem();
 	solarSystem->initShader();
-	solarSystem->runSpeed = 0.01f;
+	solarSystem->runSpeed = 0.02f;
 
 	camera.init();
 	skybox.init();
+
+
 }
 
 void MyGLWidget::paintGL() {
@@ -97,7 +99,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent* e) {			//增加了一些按键功能
 	}
 }
 
-void MyGLWidget::scene_0() 
+void MyGLWidget::scene_0()
 {
 	makeCurrent();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -106,19 +108,20 @@ void MyGLWidget::scene_0()
 	QMatrix4x4 view = camera.getView();
 	QMatrix4x4 projection;
 	projection.perspective(45.0f, width() / (float)height(), 0.1f, 1000.0f);
-
 	model.setToIdentity();
-	solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model);
-	
-	skybox.drawSkybox(model, projection);
+    
+    solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model, camera.getCameraPos());
+
+    skybox.drawSkybox(model, projection);
 	meteor.drawMeteor();
+
 
 	//calcFPS();
 	doneCurrent();
 }
 
 
-void MyGLWidget::scene_1() 
+void MyGLWidget::scene_1()
 {
 }
 
@@ -139,7 +142,7 @@ void MyGLWidget::calcFPS() {
 		frames = 0;
 	}
 
-	 printf("FPS: %d\n", fps);
+	printf("FPS: %d\n", fps);
 }
 
 

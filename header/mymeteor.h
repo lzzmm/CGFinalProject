@@ -1,4 +1,4 @@
-#ifndef __MYMETEOR_H__
+﻿#ifndef __MYMETEOR_H__
 #define __MYMETEOR_H__
 
 #ifdef MAC_OS

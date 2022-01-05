@@ -6,10 +6,10 @@ Ball::Ball()
 	, pos(10.0f, 0.0f, 0.0f)
 	, revSpeed(1.0f)
 	, rotSpeed(2.0f)
-	, ambient(1.0f, 1.0f, 1.0f)
-	, diffuse(1.0f, 1.0f, 1.0f)
-	, specular(1.0f, 1.0f, 1.0f)
-	, shinniness(1.0f)
+	, lightPos(0.0f, 0.0f, 0.0f)
+	, lightColor(1.0f, 1.0f, 0.8f)
+	, shininess(32.0f)
+	, ambient(0.2)
 	, revAngle(0.0f)
 	, rotAngle(0.0f)
 	, obliquity(23.44f)
@@ -104,16 +104,18 @@ Ball::Ball()
 Ball::~Ball() {
 }
 
-Ball::Ball(GLint texId, GLfloat r, QVector3D pos, GLfloat revS, GLfloat rotS, GLfloat obliquity, QVector3D& ambi, QVector3D& diff, QVector3D& spec, GLfloat s, GLfloat angleSpan)
+Ball::Ball(GLint texId, GLfloat r, QVector3D pos, GLfloat revS, GLfloat rotS, GLfloat obliquity, GLfloat s, GLfloat ambient, GLfloat diffuse, GLfloat specular, GLfloat angleSpan)
 	: texId(texId)
 	, radius(r)
 	, pos(pos)
 	, revSpeed(revS)
 	, rotSpeed(rotS)
-	, ambient(ambi)
-	, diffuse(diff)
-	, specular(spec)
-	, shinniness(s)
+	, lightPos(0.0f, 0.0f, 0.0f)
+	, lightColor(1.0f, 1.0f, 0.8f)
+	, shininess(s)
+	, ambient(ambient)
+	, diffuse(diffuse)
+	, specular(specular)
 	, revAngle(0.0f)
 	, rotAngle(0.0f)
 	, obliquity(obliquity)
@@ -223,7 +225,7 @@ void Ball::rotate(GLfloat speed) {
 	rotAngle = (rotAngle + rotSpeed * speed) < 360 ? rotAngle + rotSpeed * speed : 0;
 }
 
-void Ball::drawBall(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projection, QMatrix4x4 model, QOpenGLShaderProgram& shader) {
+void Ball::drawBall(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projection, QMatrix4x4 model, QVector3D viewPos, QOpenGLShaderProgram& shader) {
 
 	QOpenGLVertexArrayObject::Binder{ &VAO };
 
@@ -237,6 +239,7 @@ void Ball::drawBall(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projec
 	shader.enableAttributeArray(1);
 	shader.setAttributeBuffer(2, GL_FLOAT, sizeof(GLfloat) * 6, 2, sizeof(GLfloat) * 8); // TexCoord
 	shader.enableAttributeArray(2);
+
 
 	//model.setToIdentity();
 	model.rotate(revAngle, QVector3D(0.0f, 1.0f, 0.0f));  // 公转
@@ -253,10 +256,13 @@ void Ball::drawBall(QOpenGLExtraFunctions* f, QMatrix4x4 view, QMatrix4x4 projec
 	shader.setUniformValue("model", model);
 	shader.setUniformValue("view", view);
 	shader.setUniformValue("projection", projection);
-	shader.setUniformValue("lightColor", QVector3D(1.0f, 0.7f, 0.6f));
-	shader.setUniformValue("lightPos", QVector3D(0.0f, 0.0f, 0.0f));
-	shader.setUniformValue("viewPos", QVector3D(1.0f, 0.0f, 0.0f));
-
+	shader.setUniformValue("lightPos", lightPos);
+	shader.setUniformValue("lightColor", lightColor);
+	shader.setUniformValue("viewPos", viewPos);
+	shader.setUniformValue("shininess", shininess);
+	shader.setUniformValue("ambientStrength", ambient);
+	shader.setUniformValue("diffuseStrength", diffuse);
+	shader.setUniformValue("specularStrength", specular);
 
 
 	texture.bind(texId);
