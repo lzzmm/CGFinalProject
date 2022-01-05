@@ -1,4 +1,4 @@
-﻿#version 330 core
+#version 330 core
 
 out vec4 FragColor;
 
@@ -20,19 +20,18 @@ uniform float quadratic = 0.000007;
 
 void main()
 {
-    // 环境光
+    // ambient
     // float ambientStrength = 0.2;
     vec3 ambient = ambientStrength * lightColor;
     
-    // 法向量
     vec3 norm = normalize(Normal);
-    // 光源
     vec3 lightDir = normalize(lightPos - FragPos);
-    // 漫反射 
+
+    // diffuse
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * diffuseStrength * lightColor;
     
-    // 镜面反射
+    // specular
     //float specularStrength = 0.5;
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
