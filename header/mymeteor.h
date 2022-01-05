@@ -21,38 +21,38 @@ public:
 	Meteor(QWidget* widget);
 	void initMeteor();
 	void drawMeteor();
-	void explode();					//±¬Õ¨Ğ§¹û
-	void meteor_run();				//Á÷ĞÇĞ§¹û
-	void change_rainbow();			//Ã»Ê²Ã´ÓÃµÄ¡ª¡ª¸Ä³É²ÊºçÑÕÉ«
-	void change_color();			//Ã»Ê²Ã´ÓÃµÄ¡ª¡ª¸Ä±äÑÕÉ«
+	void explode();					//çˆ†ç‚¸æ•ˆæœ
+	void meteor_run();				//æµæ˜Ÿæ•ˆæœ
+	void change_rainbow();			//æ²¡ä»€ä¹ˆç”¨çš„â€”â€”æ”¹æˆå½©è™¹é¢œè‰²
+	void change_color();			//æ²¡ä»€ä¹ˆç”¨çš„â€”â€”æ”¹å˜é¢œè‰²
 
 private:
 	QWidget* widget;
 
 
-	static const int MAX_PARTICLES = 2000;          //×î´óÁ£×ÓÊı
-	static const GLfloat COLORS[12][3];             //²ÊºçµÄÑÕÉ«
-	bool m_Rainbow;                                 //ÊÇ·ñÎª²ÊºçÄ£Ê½
-	GLuint m_Color;                                 //µ±Ç°µÄÑÕÉ«
-	float m_Slowdown;                               //¼õËÙÁ£×Ó
-	float m_xSpeed;                                 //x·½ÏòµÄËÙ¶È
-	float m_ySpeed;                                 //y·½ÏòµÄËÙ¶È
-	float m_Deep;                                   //ÒÆÈëÆÁÄ»µÄ¾àÀë
+	static const int MAX_PARTICLES = 2000;          //æœ€å¤§ç²’å­æ•°
+	static const GLfloat COLORS[12][3];             //å½©è™¹çš„é¢œè‰²
+	bool m_Rainbow;                                 //æ˜¯å¦ä¸ºå½©è™¹æ¨¡å¼
+	GLuint m_Color;                                 //å½“å‰çš„é¢œè‰²
+	float m_Slowdown;                               //å‡é€Ÿç²’å­
+	float m_xSpeed;                                 //xæ–¹å‘çš„é€Ÿåº¦
+	float m_ySpeed;                                 //yæ–¹å‘çš„é€Ÿåº¦
+	float m_Deep;                                   //ç§»å…¥å±å¹•çš„è·ç¦»
 
 	int screen_width;
 	int screen_height;
 
-	struct Particle                                 //´´½¨Á£×Ó½á¹¹Ìå
+	struct Particle                                 //åˆ›å»ºç²’å­ç»“æ„ä½“
 	{
-		bool active;                                //ÊÇ·ñ¼¤»î
-		float life;                                 //Á£×ÓÉúÃü
-		float fade;                                 //Ë¥¼õËÙ¶È
+		bool active;                                //æ˜¯å¦æ¿€æ´»
+		float life;                                 //ç²’å­ç”Ÿå‘½
+		float fade;                                 //è¡°å‡é€Ÿåº¦
 
-		float r, g, b;                              //Á£×ÓÑÕÉ«
-		float x, y, z;                              //Î»ÖÃ×ø±ê
-		float xi, yi, zi;                           //¸÷·½ÏòËÙ¶È
-		float xg, yg, zg;                           //¸÷·½Ïò¼ÓËÙ¶È
-	} m_Particles[MAX_PARTICLES];                   //´æ·ÅËùÓĞÁ£×ÓµÄÊı×é
+		float r, g, b;                              //ç²’å­é¢œè‰²
+		float x, y, z;                              //ä½ç½®åæ ‡
+		float xi, yi, zi;                           //å„æ–¹å‘é€Ÿåº¦
+		float xg, yg, zg;                           //å„æ–¹å‘åŠ é€Ÿåº¦
+	} m_Particles[MAX_PARTICLES];                   //å­˜æ”¾æ‰€æœ‰ç²’å­çš„æ•°ç»„
 	//Camera camera;
 };
 #endif // __MYMETEOR_H__

@@ -5,6 +5,8 @@
 
 #include "mycamera.h"
 #include "solarSystem.h"
+#include "mymeteor.h"
+#include "skybox.h"
 // #include "textRender.h"
 
 class MyGLWidget : public QOpenGLWidget {
@@ -21,9 +23,13 @@ protected:
 	void keyPressEvent(QKeyEvent* e);
 	virtual bool event(QEvent* e) override;
 
+	bool get_fullscreen();
+	void set_fullscreen(bool val);
+
 	void calcFPS();
 
 private:
+	bool fullscreen;
 	int scene_id;
 	int fps;
 	void scene_0();
@@ -34,6 +40,8 @@ private:
 	SolarSystem* solarSystem;
 
 	Camera camera;
+	Meteor meteor;
+	Skybox skybox;
 
 };
 #endif // __MYGLWIDGET_H__

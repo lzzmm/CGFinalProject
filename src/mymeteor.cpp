@@ -85,7 +85,7 @@ void Meteor::initMeteor() {
 	glEnable(GL_TEXTURE_2D);                            //启用纹理映射
 	glShadeModel(GL_SMOOTH);                            //启用阴影平滑
 	glClearDepth(1.0);                                  //设置深度缓存
-	glEnable(GL_DEPTH_TEST);                           //禁止深度测试
+	glDisable(GL_DEPTH_TEST);                           //关闭深度测试
 	glEnable(GL_BLEND);                                 //启用融合
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	//设置融合因子
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  //告诉系统对透视进行修正
@@ -93,12 +93,14 @@ void Meteor::initMeteor() {
 }
 
 void Meteor::drawMeteor() {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //清除屏幕和深度缓存
+	glDisable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0.0f, 100.0f, 0.0f, 100.0f, -1000.0f, 1000.0f);
-
 	glMatrixMode(GL_MODELVIEW);
+
+
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //清除屏幕和深度缓存
 	glLoadIdentity();                                   //重置模型观察矩阵
 
 
@@ -161,6 +163,7 @@ void Meteor::drawMeteor() {
 			m_Color = 0;
 		}
 	}
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Meteor::meteor_run() {

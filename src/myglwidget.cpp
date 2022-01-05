@@ -4,6 +4,9 @@ MyGLWidget::MyGLWidget(QWidget* parent)
 	: QOpenGLWidget(parent)
 	, scene_id(0)
 	, camera(this)
+	, meteor(this)
+	, fullscreen(false)
+	, skybox(this)
 {
 	timer = new QTimer(this); // 实例化一个定时器
 	timer->start(16); // 时间间隔设置为16ms，可以根据需要调整
@@ -32,6 +35,9 @@ void MyGLWidget::initializeGL()
 	solarSystem = new SolarSystem();
 	solarSystem->initShader();
 	solarSystem->runSpeed = 0.01f;
+
+	camera.init();
+	skybox.init();
 }
 
 void MyGLWidget::paintGL() {
@@ -52,8 +58,8 @@ void MyGLWidget::resizeGL(int width, int height) {
 	update();
 }
 
-void MyGLWidget::keyPressEvent(QKeyEvent* e) {
-	// Press 0 or 1 to switch the scene
+void MyGLWidget::keyPressEvent(QKeyEvent* e) {			//增加了一些按键功能
+	//Press 0 or 1 to switch the scene
 	if (e->key() == Qt::Key_0) {
 		scene_id = 0;
 		update();
@@ -62,8 +68,32 @@ void MyGLWidget::keyPressEvent(QKeyEvent* e) {
 		scene_id = 1;
 		update();
 	}
-	else if (e->key() == Qt::Key_Escape) {
+	else if (e->key() == Qt::Key_F1) {				//F1为全屏和普通屏的切换键
+		set_fullscreen(!get_fullscreen());
+		if (get_fullscreen())
+		{
+			showFullScreen();
+		}
+		else
+		{
+			showNormal();
+		}
+		update();
+	}
+	else if (e->key() == Qt::Key_Escape) {         //ESC为退出键，结束整个进程
 		close();
+	}
+	else if (e->key() == Qt::Key_Tab) {				//Tab按下，随机两个地方产生爆炸
+		meteor.explode();
+	}
+	else if (e->key() == Qt::Key_Z) {				// Z 键，出现一个流星
+		meteor.meteor_run();
+	}
+	else if (e->key() == Qt::Key_Return) {			//没什么用的——回车键为是否彩虹模式的切换键
+		meteor.change_rainbow();
+	}
+	else if (e->key() == Qt::Key_Space) {			//也没什么用的——换颜色
+		meteor.change_color();
 	}
 }
 
@@ -79,6 +109,10 @@ void MyGLWidget::scene_0()
 
 	model.setToIdentity();
 	solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model);
+	
+	skybox.drawSkybox(model, projection);
+	meteor.drawMeteor();
+
 	//calcFPS();
 	doneCurrent();
 }
@@ -106,4 +140,13 @@ void MyGLWidget::calcFPS() {
 	}
 
 	 printf("FPS: %d\n", fps);
+}
+
+
+bool MyGLWidget::get_fullscreen() {
+	return fullscreen;
+}
+
+void MyGLWidget::set_fullscreen(bool val) {
+	fullscreen = val;
 }
