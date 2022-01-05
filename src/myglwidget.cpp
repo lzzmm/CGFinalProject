@@ -16,7 +16,6 @@ MyGLWidget::MyGLWidget(QWidget* parent)
 MyGLWidget::~MyGLWidget() {
 	makeCurrent();
 	delete this->timer;
-	//texture.destroy();
 	doneCurrent();
 }
 

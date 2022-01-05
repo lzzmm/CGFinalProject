@@ -2,18 +2,18 @@
 
 Ball::Ball()
 	: texId(0)
-	, radius(1)
+	, radius(1.0f)
 	, pos(10.0f, 0.0f, 0.0f)
 	, revSpeed(1.0f)
 	, rotSpeed(2.0f)
 	, lightPos(0.0f, 0.0f, 0.0f)
 	, lightColor(1.0f, 1.0f, 0.8f)
 	, shininess(32.0f)
-	, ambient(0.2)
+	, ambient(0.2f)
 	, revAngle(0.0f)
 	, rotAngle(0.0f)
 	, obliquity(23.44f)
-	, angleSpan(0.5)
+	, angleSpan(0.5f)
 	, VBO(QOpenGLBuffer::VertexBuffer)
 	, IBO(QOpenGLBuffer::IndexBuffer)
 	, texture(QOpenGLTexture::Target2D)
@@ -102,6 +102,7 @@ Ball::Ball()
 }
 
 Ball::~Ball() {
+	texture.destroy();
 }
 
 Ball::Ball(GLint texId, GLfloat r, QVector3D pos, GLfloat revS, GLfloat rotS, GLfloat obliquity, GLfloat s, GLfloat ambient, GLfloat diffuse, GLfloat specular, GLfloat angleSpan)
