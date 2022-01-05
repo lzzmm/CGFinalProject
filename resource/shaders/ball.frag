@@ -21,7 +21,6 @@ uniform float quadratic = 0.000007;
 void main()
 {
     // ambient
-    // float ambientStrength = 0.2;
     vec3 ambient = ambientStrength * lightColor;
     
     vec3 norm = normalize(Normal);
@@ -32,10 +31,11 @@ void main()
     vec3 diffuse = diff * diffuseStrength * lightColor;
     
     // specular
-    //float specularStrength = 0.5;
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    //float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess); // Phong
+    vec3 halfDir = normalize(viewDir + lightDir);
+    float spec = pow(max(dot(halfDir, norm), 0.0), shininess); // Blinn Phong
     vec3 specular = specularStrength * spec * lightColor;
     
     float distance = length(FragPos - lightPos);

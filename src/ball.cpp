@@ -209,7 +209,6 @@ Ball::Ball(GLint texId, GLfloat r, QVector3D pos, GLfloat revS, GLfloat rotS, GL
 
 void Ball::textureBind(QString tex)
 {
-	//texture.setData(QImage(":/resource/textures/earth.jpg").mirrored());
 	texture.setData(QImage(tex).mirrored());
 	texture.setWrapMode(QOpenGLTexture::DirectionS, QOpenGLTexture::ClampToEdge);
 	texture.setWrapMode(QOpenGLTexture::DirectionT, QOpenGLTexture::ClampToEdge);
