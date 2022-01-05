@@ -16,6 +16,7 @@ MyGLWidget::MyGLWidget(QWidget* parent)
 MyGLWidget::~MyGLWidget() {
 	makeCurrent();
 	delete this->timer;
+	delete this->solarSystem;
 	doneCurrent();
 }
 
@@ -108,10 +109,10 @@ void MyGLWidget::scene_0()
 	QMatrix4x4 projection;
 	projection.perspective(45.0f, width() / (float)height(), 0.1f, 1000.0f);
 	model.setToIdentity();
-    
-    solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model, camera.getCameraPos());
 
-    skybox.drawSkybox(model, projection);
+	solarSystem->draw(QOpenGLContext::currentContext()->extraFunctions(), view, projection, model, camera.getCameraPos());
+
+	skybox.drawSkybox(model, projection);
 	meteor.drawMeteor();
 
 

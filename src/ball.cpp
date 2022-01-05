@@ -101,8 +101,8 @@ Ball::Ball()
 	texture.create();
 }
 
-Ball::~Ball() {
-	texture.destroy();
+Ball::~Ball() 
+{
 }
 
 Ball::Ball(GLint texId, GLfloat r, QVector3D pos, GLfloat revS, GLfloat rotS, GLfloat obliquity, GLfloat s, GLfloat ambient, GLfloat diffuse, GLfloat specular, GLfloat angleSpan)
